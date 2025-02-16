@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Table Creator</title>
+</head>
+<body>
 
+    <h2>Table Creator</h2>
+    Rows: <input type="number" id="rows">
+    Columns: <input type="number" id="cols">
+    <button onclick="createTable()">Generate Table</button>
+
+    <div id="table-container"></div>
+
+    <script>
+        function createTable() {
+            let r = document.getElementById("rows").value;
+            let c = document.getElementById("cols").value;
+            let container = document.getElementById("table-container");
+
+            if (r < 1 || c < 1) {
+                alert("Enter valid numbers!");
+                return;
+            }
+
+            let table = document.createElement("table");
+            table.border = "1";
+
+            for (let i = 0; i < r; i++) {
+                let row = table.insertRow();
+
+                for (let j = 0; j < c; j++) {
+                    let cell = row.insertCell();
+                    cell.innerHTML = `(${i+1},${j+1})`;
+                }
+
+                let delBtn = row.insertCell();
+                delBtn.innerHTML = '<button onclick="this.parentElement.parentElement.remove()">X</button>';
+            }
+
+            container.innerHTML = "";
+            container.appendChild(table);
+        }
+    </script>
+
+</body>
+</html>

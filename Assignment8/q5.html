@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter</title>
+    <style>
+        textarea { width: 300px; height: 150px; padding: 5px; display: block; }
+        .highlight { background-color: yellow; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Word Counter</h2>
+    <textarea id="textInput" placeholder="Type here..."></textarea>
+    <p>Word Count: <span id="wordCount">0</span></p>
+    <p>Repeated Words: <span id="repeatedWords"></span></p>
+
+    <script>
+        let textArea = document.getElementById("textInput");
+        let wordCountDisplay = document.getElementById("wordCount");
+        let repeatedWordsDisplay = document.getElementById("repeatedWords");
+
+        textArea.oninput = function() {
+            let words = textArea.value.toLowerCase().match(/\b\w+\b/g) || [];
+            wordCountDisplay.textContent = words.length;
+
+            let wordMap = {};
+            words.forEach(word => wordMap[word] = (wordMap[word] || 0) + 1);
+
+            let repeated = Object.keys(wordMap).filter(word => wordMap[word] > 1);
+            repeatedWordsDisplay.innerHTML = repeated.length ? repeated.map(w => `<span class="highlight">${w}</span>`).join(", ") : "None";
+        };
+    </script>
+
+</body>
+</html>

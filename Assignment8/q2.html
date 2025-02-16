@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form Validation</title>
+    <style>
+        input { display: block; margin: 10px 0; padding: 5px; border: 2px solid gray; }
+        .error { color: red; font-size: 12px; }
+        .valid { border-color: green; }
+        .invalid { border-color: red; }
+    </style>
+</head>
+<body>
+
+    <h2>Sign Up</h2>
+    <input type="text" id="name" placeholder="Name">
+    <div id="nameError" class="error"></div>
+
+    <input type="email" id="email" placeholder="Email">
+    <div id="emailError" class="error"></div>
+
+    <input type="password" id="password" placeholder="Password">
+    <div id="passwordError" class="error"></div>
+
+    <button id="submitBtn" disabled>Sign Up</button>
+
+    <script>
+        let nameInput = document.getElementById("name");
+        let emailInput = document.getElementById("email");
+        let passwordInput = document.getElementById("password");
+        let submitBtn = document.getElementById("submitBtn");
+
+        function validate() {
+            let name = nameInput.value;
+            let email = emailInput.value;
+            let password = passwordInput.value;
+
+            let nameValid = name.length > 0;
+            let emailValid = email.includes("@") && email.includes(".");
+            let passwordValid = password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password);
+
+            nameInput.className = nameValid ? "valid" : "invalid";
+            emailInput.className = emailValid ? "valid" : "invalid";
+            passwordInput.className = passwordValid ? "valid" : "invalid";
+
+            document.getElementById("nameError").innerText = nameValid ? "" : "Name can't be empty.";
+            document.getElementById("emailError").innerText = emailValid ? "" : "Enter a valid email.";
+            document.getElementById("passwordError").innerText = passwordValid ? "" : "Password needs 8+ chars, 1 uppercase & 1 number.";
+
+            submitBtn.disabled = !(nameValid && emailValid && passwordValid);
+        }
+
+        nameInput.oninput = validate;
+        emailInput.oninput = validate;
+        passwordInput.oninput = validate;
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Carousel</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        .carousel { width: 300px; height: 200px; margin: auto; overflow: hidden; }
+        img { width: 100%; height: 100%; display: none; }
+        .btn { margin: 10px; padding: 5px 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2>Simple Image Carousel</h2>
+    <div class="carousel" id="carousel">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdYMQKIC3OqD3eBDFqenCLw6KFA6Joc5z2xw&s" class="slide" style="display: block;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbWb9vinIcfW7eetdkoK28bMNc59cI9Jcd0A&s" class="slide">
+        <img src="https://w0.peakpx.com/wallpaper/64/995/HD-wallpaper-aesthetic-skies-1-background-clouds-iphone-moon-pink-purple-sky-stars.jpg" class="slide">
+    </div>
+
+    <button class="btn" onclick="prevImage()">Previous</button>
+    <button class="btn" onclick="nextImage()">Next</button>
+
+    <script>
+        let slides = document.querySelectorAll(".slide");
+        let index = 0;
+        let timer;
+
+        function showImage(i) {
+            slides.forEach(img => img.style.display = "none");
+            slides[i].style.display = "block";
+        }
+
+        function nextImage() {
+            index = (index + 1) % slides.length;
+            showImage(index);
+        }
+
+        function prevImage() {
+            index = (index - 1 + slides.length) % slides.length;
+            showImage(index);
+        }
+
+        function startAutoSlide() {
+            timer = setInterval(nextImage, 3000);
+        }
+
+        function stopAutoSlide() {
+            clearInterval(timer);
+        }
+
+        document.getElementById("carousel").addEventListener("mouseenter", stopAutoSlide);
+        document.getElementById("carousel").addEventListener("mouseleave", startAutoSlide);
+
+        startAutoSlide();
+    </script>
+
+</body>
+</html>

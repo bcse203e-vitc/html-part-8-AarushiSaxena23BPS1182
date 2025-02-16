@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Toggle</title>
+</head>
+<body>
+
+    <h2>Password Toggle</h2>
+    <input type="password" id="password" placeholder="Enter password">
+    <br>
+    <input type="checkbox" id="toggle"> Show Password
+
+    <script>
+        let passwordInput = document.getElementById("password");
+        let toggleCheckbox = document.getElementById("toggle");
+
+        toggleCheckbox.onchange = function() {
+            passwordInput.type = this.checked ? "text" : "password";
+        };
+    </script>
+
+</body>
+</html>

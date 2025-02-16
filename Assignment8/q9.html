@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+</head>
+<body>
+
+    <h2>Countdown Timer</h2>
+    <input type="number" id="timeInput" placeholder="Enter seconds">
+    <button onclick="startTimer()">Start</button>
+    <p id="display">Time left: --</p>
+
+    <audio id="alarm" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3"></audio>
+
+    <script>
+        let countdown;
+        
+        function startTimer() {
+            let time = document.getElementById("timeInput").value;
+            if (time <= 0) return;
+            
+            clearInterval(countdown);
+
+            countdown = setInterval(function() {
+                document.getElementById("display").textContent = "Time left: " + time + "s";
+                time--;
+
+                if (time < 0) {
+                    clearInterval(countdown);
+                    document.getElementById("display").textContent = "Time's up!";
+                    
+                    let sound = document.getElementById("alarm");
+                    sound.currentTime = 0;
+                    sound.play().catch(error => console.log(error));
+                }
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
